@@ -9,7 +9,7 @@ import PokerAI.BJAIMain;
 import PokerDeck.Card;
 import PokerDeck.CardDeck;
 import PlayerInfo.Player;
-import UI.BlackJackUI;
+import UI.BlackJackUINew;
 import java.util.HashSet;
 
 /**
@@ -26,10 +26,10 @@ public class BlackJackPlayRound {
     private int nMoneyOfRound;
     private Player pWinPlayer;
 
-    BlackJackUI UI;
+    BlackJackUINew UI;
     BlackJackPlay game;
 
-    public BlackJackPlayRound(Player A, Player B, CardDeck d, BlackJackUI ui, BlackJackPlay GAME) {
+    public BlackJackPlayRound(Player A, Player B, CardDeck d, BlackJackUINew ui, BlackJackPlay GAME) {
         pPlayer = A;
         pAI = B;
         cardDeck = d;

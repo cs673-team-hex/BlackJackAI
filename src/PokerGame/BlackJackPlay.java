@@ -8,7 +8,7 @@ package PokerGame;
 import Log.Log;
 import PokerDeck.CardDeck;
 import PlayerInfo.Player;
-import UI.BlackJackUI;
+import UI.BlackJackUINew;
 import javax.mail.MessagingException;
 
 /**
@@ -24,9 +24,9 @@ public class BlackJackPlay {
     Player pPlayer;
     Player pAI;
 
-    final BlackJackUI UI;
+    final BlackJackUINew UI;
 
-    public BlackJackPlay(BlackJackUI ui) {
+    public BlackJackPlay(BlackJackUINew ui) {
         if (deck == null) {
             deck = new CardDeck();
         }
@@ -109,6 +109,6 @@ public class BlackJackPlay {
         Log.getInstance().Log(1, "Player Hand : " + pPlayer.printCardInHand());
         Log.getInstance().Log(1, "-----------------------------------------------");
 
-        UI.RefreshLog(Log.getInstance().getLog());
+       // UI.RefreshLog(Log.getInstance().getLog());
     }
 }

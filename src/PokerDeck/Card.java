@@ -14,7 +14,7 @@ public class Card {
     private int nNum;
     private int nColor;
     private boolean bFaceDown;
-
+//Constructor
     public Card(int nC, int nN) {
         nNum = nN;
         nColor = nC;

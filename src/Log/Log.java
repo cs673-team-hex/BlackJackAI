@@ -5,7 +5,6 @@
  */
 package Log;
 
-import UI.BlackJackUI;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
