@@ -422,10 +422,10 @@ public class BlackJackUINew extends javax.swing.JFrame {
         
         //dangerous if not modified
         if (game == null) {
-            jAIMoney.setText(String.valueOf(100000));
+            jAIMoney.setText("MAX");
             jPMoney.setText(String.valueOf(game.getPlayer().getMoney()));
         } else {
-            jAIMoney.setText(String.valueOf(game.getAI().getMoney()));
+            jAIMoney.setText("MAX");
             jPMoney.setText(String.valueOf(game.getPlayer().getMoney()));
         }
     }

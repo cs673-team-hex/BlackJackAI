@@ -32,7 +32,7 @@ public class BlackJackPlay {
         }
         nRound = 0;
         double dPlayerStartMoney = pPlayer.getBalance();
-        double dAiStartMoney = 100000;
+        double dAiStartMoney = Integer.MAX_VALUE;
         pPlayer = new Player(dPlayerStartMoney, false);
         pAI = new Player(dAiStartMoney, true);
         UI = ui;
