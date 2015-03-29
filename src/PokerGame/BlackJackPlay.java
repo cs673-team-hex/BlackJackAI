@@ -31,9 +31,10 @@ public class BlackJackPlay {
             deck = new CardDeck();
         }
         nRound = 0;
-        int nStartMoney = 1000;
-        pPlayer = new Player(nStartMoney, false);
-        pAI = new Player(nStartMoney, true);
+        double dPlayerStartMoney = pPlayer.getBalance();
+        double dAiStartMoney = 100000;
+        pPlayer = new Player(dPlayerStartMoney, false);
+        pAI = new Player(dAiStartMoney, true);
         UI = ui;
         UI.RefreshMoneyOfBothPlayer();
     }

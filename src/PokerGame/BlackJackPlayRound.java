@@ -11,6 +11,10 @@ import PokerDeck.CardDeck;
 import PlayerInfo.Player;
 import UI.BlackJackUINew;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -23,7 +27,7 @@ public class BlackJackPlayRound {
 
     private Player pCurrentPlayer;
     private final CardDeck cardDeck;
-    private int nMoneyOfRound;
+    private double dMoneyOfRound;
     private Player pWinPlayer;
 
     BlackJackUINew UI;
@@ -37,13 +41,14 @@ public class BlackJackPlayRound {
         UI = ui;
         pCurrentPlayer = pPlayer;
         game = GAME;
-        nMoneyOfRound = 50;
-        UI.setBet(nMoneyOfRound);
+        dMoneyOfRound = 50;
+        UI.setBet(dMoneyOfRound);
 
         pPlayer.doDouble(false);
 
     }
 
+    
     public Player getCurrentPlayer() {
         return pCurrentPlayer;
     }
@@ -52,25 +57,25 @@ public class BlackJackPlayRound {
         return pCurrentPlayer == pPlayer;
     }
 
-    public void setMoneyOfRound(int nMoney) {
+    public void setMoneyOfRound(double nMoney) {
         //Logic
-        this.nMoneyOfRound = nMoney;
+        this.dMoneyOfRound = nMoney;
         //UI
         UI.setBet(nMoney);
     }
 
     public void DoubleMoneyOfRound() {
-        nMoneyOfRound *= 2;
-        this.setMoneyOfRound(nMoneyOfRound);
+        dMoneyOfRound *= 2;
+        this.setMoneyOfRound(dMoneyOfRound);
     }
 
     public void HalfMoneyOfRound() {
-        nMoneyOfRound /= 2;
-        this.setMoneyOfRound(nMoneyOfRound);
+        dMoneyOfRound /= 2;
+        this.setMoneyOfRound(dMoneyOfRound);
     }
 
-    public int getMoneyOfRoundth() {
-        return this.nMoneyOfRound;
+    public double getMoneyOfRoundth() {
+        return this.dMoneyOfRound;
     }
 
     public void SendFirstTwoCardsToBothPlayer() throws InterruptedException {
@@ -120,12 +125,13 @@ public class BlackJackPlayRound {
         }
         UI.TerminateControlOfPlayer();
         game.PrintLog();
+        pPlayer.putBalance(pPlayer.getMoney());
         return nSituation;
     }
 
     public void RoundEndAIWin() {
-        pPlayer.LoseMoney(nMoneyOfRound);
-        pAI.EarnMoney(nMoneyOfRound);
+        pPlayer.LoseMoney(dMoneyOfRound);
+        pAI.EarnMoney(dMoneyOfRound);
 
         //UI
         UI.RefreshWhenAIWin();
@@ -137,8 +143,8 @@ public class BlackJackPlayRound {
     }
 
     public void RoundEndYouWin() {
-        pPlayer.EarnMoney(nMoneyOfRound);
-        pAI.LoseMoney(nMoneyOfRound);
+        pPlayer.EarnMoney(dMoneyOfRound);
+        pAI.LoseMoney(dMoneyOfRound);
 
         //UI
         UI.RefreshWhenYouWin();
@@ -152,7 +158,7 @@ public class BlackJackPlayRound {
 
     public void PlayerDoublePhase() {
         if (DecidePlayerDoubleFromAI()) {
-            this.nMoneyOfRound = nMoneyOfRound * 2;
+            this.dMoneyOfRound = dMoneyOfRound * 2;
         }
     }
 

@@ -7,7 +7,12 @@ package PlayerInfo;
 
 import PokerGame.BlackJackRule;
 import PokerDeck.Card;
+import PokerGame.BlackJackPlayRound;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -17,13 +22,13 @@ public class Player {
 
     final boolean bAI;
     int nNumCards;
-    int nMoney;
+    double dMoney;
     boolean bDouble;
     ArrayList<Card> CardArray;
 //Constructor
-    public Player(int nInitMoney, boolean bSetAI) {
+    public Player(double dInitMoney, boolean bSetAI) {
         bAI = bSetAI;
-        nMoney = nInitMoney;
+        dMoney = dInitMoney;
         CardArray = new ArrayList<Card>();
         bDouble = false;
     }
@@ -31,23 +36,49 @@ public class Player {
     public void doDouble(boolean b) {
         this.bDouble = b;
     }
+    
+    // get current balance for player from server.    
+    public double getBalance() {
+        double currentBalance = 0;
+        JSONObject money = new JSONObject();
+        try {
+            currentBalance = money.getDouble("balance");
+            
+        } catch (JSONException ex) {
+            Logger.getLogger(BlackJackPlayRound.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+        return currentBalance;
+    }
+    // put current balance for player to server
+    public JSONObject putBalance(double d) {
+        JSONObject putCurrentBalance = new JSONObject();
+        try {
+            putCurrentBalance.put("balance", d);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println(putCurrentBalance);
+        return putCurrentBalance;
+    }
+    
 //检查是否双倍
     public boolean AmIDouble() {
         return this.bDouble;
     }
 //赢钱
-    public void EarnMoney(int nInitMoney) {
-        if (nInitMoney > 0) {
-            this.nMoney += nInitMoney;
+    public void EarnMoney(double dInitMoney) {
+        if (dInitMoney > 0) {
+            this.dMoney += dInitMoney;
         }
     }
 
-    public void LoseMoney(int nInitMoney) {
-        if (nInitMoney > 0) {
-            this.nMoney -= nInitMoney;
+    public void LoseMoney(double dInitMoney) {
+        if (dInitMoney > 0) {
+            this.dMoney -= dInitMoney;
         }
-        if (this.nMoney < 0) {
-            this.nMoney = 0;
+        if (this.dMoney < 0) {
+            this.dMoney = 0;
         }
     }
 //得到手牌
@@ -86,8 +117,9 @@ public class Player {
         CardArray.add(cardNewCard);
         nNumCards++;
     }
-//显示目前金钱
-    public int getMoney() {
-        return this.nMoney;
+// Display the current money for player.
+    public double getMoney() {
+        dMoney = getBalance();
+        return this.dMoney;
     }
 }

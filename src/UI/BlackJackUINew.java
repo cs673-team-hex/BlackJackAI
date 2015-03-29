@@ -419,10 +419,11 @@ public class BlackJackUINew extends javax.swing.JFrame {
     
     public void RefreshMoneyOfBothPlayer() {
         //TODO should get money from DB,
+        
         //dangerous if not modified
         if (game == null) {
-            jAIMoney.setText(String.valueOf(1000));
-            jPMoney.setText(String.valueOf(1000));
+            jAIMoney.setText(String.valueOf(100000));
+            jPMoney.setText(String.valueOf(game.getPlayer().getMoney()));
         } else {
             jAIMoney.setText(String.valueOf(game.getAI().getMoney()));
             jPMoney.setText(String.valueOf(game.getPlayer().getMoney()));
@@ -536,7 +537,7 @@ public class BlackJackUINew extends javax.swing.JFrame {
                 new javax.swing.ImageIcon(getClass().getResource(cardAddress)));
     }
      
-     public void setBet(int nBet) {
+     public void setBet(double nBet) {
         jBet.setText(String.valueOf(nBet));
     }
 
