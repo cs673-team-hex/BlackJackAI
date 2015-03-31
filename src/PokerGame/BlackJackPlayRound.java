@@ -117,7 +117,11 @@ public class BlackJackPlayRound {
     public int RoundEnd(int nSituation) {
 
         if (nSituation > 0) {
-            RoundEndAIWin();
+            try {
+                RoundEndAIWin();
+            } catch (JSONException ex) {
+                Logger.getLogger(BlackJackPlayRound.class.getName()).log(Level.SEVERE, null, ex);
+            }
             pWinPlayer = pAI;
         } else {
             RoundEndYouWin();
@@ -129,9 +133,18 @@ public class BlackJackPlayRound {
         return nSituation;
     }
 
-    public void RoundEndAIWin() {
+    public void RoundEndAIWin() throws JSONException {
         pPlayer.LoseMoney(dMoneyOfRound);
         pAI.EarnMoney(dMoneyOfRound);
+        
+        //Send the amount of lost money to sever.
+        JSONObject putLost = new JSONObject();
+        try {
+            putLost.put("winning", dMoneyOfRound);
+        } catch (JSONException ex) {
+            Logger.getLogger(BlackJackPlayRound.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
         //UI
         UI.RefreshWhenAIWin();
@@ -145,6 +158,15 @@ public class BlackJackPlayRound {
     public void RoundEndYouWin() {
         pPlayer.EarnMoney(dMoneyOfRound);
         pAI.LoseMoney(dMoneyOfRound);
+        
+        //Send the amount of winned money to sever.
+        JSONObject putWin = new JSONObject();
+        try {
+            putWin.put("winning", dMoneyOfRound);
+        } catch (JSONException ex) {
+            Logger.getLogger(BlackJackPlayRound.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
         //UI
         UI.RefreshWhenYouWin();
